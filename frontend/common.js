@@ -23,6 +23,17 @@ function typeText(type) {
   return type.charAt(0).toUpperCase() + type.slice(1);
 }
 
+// tykkäysten määrä tekstinä, sama taivutusjuttu kuin iässä
+function likesText(likes) {
+  if (!likes) {
+    return "Ei vielä tykkäyksiä";
+  }
+  if (likes === 1) {
+    return "1 tykkäys";
+  }
+  return likes + " tykkäystä";
+}
+
 // jos eläimellä ei ole kuvaa, käytetään placeholderia
 function imageSrc(animal) {
   if (animal.image_url) {

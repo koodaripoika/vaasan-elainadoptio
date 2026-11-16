@@ -26,6 +26,14 @@
   </section>
 
   <main class="container">
+    <!-- suodatus lajin mukaan, data-type kertoo mitä nappi näyttää -->
+    <div class="filters">
+      <button class="filter-button active" data-type="kaikki">Kaikki</button>
+      <button class="filter-button" data-type="koira">Koirat</button>
+      <button class="filter-button" data-type="kissa">Kissat</button>
+      <button class="filter-button" data-type="muut">Muut</button>
+    </div>
+
     <p id="status-text" class="status-text">Ladataan eläimiä...</p>
     <div id="animal-list" class="animal-list"></div>
   </main>

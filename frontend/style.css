@@ -96,6 +96,35 @@ main {
   color: var(--muted);
 }
 
+/* Suodatusnapit */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.filter-button {
+  background: var(--white);
+  color: var(--green);
+  border: 2px solid var(--green);
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.filter-button:hover {
+  background: var(--green-light);
+}
+
+.filter-button.active {
+  background: var(--green);
+  color: var(--white);
+}
+
 /* Eläinkortit. auto-fill tekee niin että kortteja mahtuu riville niin monta
    kuin ruudun leveys antaa myöten, ei tarvinnut tehdä erikseen mediaqueryja */
 .animal-list {
@@ -145,7 +174,13 @@ main {
 }
 
 .card-info {
-  margin: 4px 0 16px;
+  margin: 4px 0 2px;
+  color: var(--muted);
+}
+
+.card-likes {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
   color: var(--muted);
 }
 
@@ -276,6 +311,43 @@ main {
 
 .description {
   font-size: 1.05rem;
+}
+
+/* Tykkää-nappi */
+.like-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--white);
+  color: #c0392b;
+  border: 2px solid #e8b4ad;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.like-button:hover {
+  background: #fdf0ee;
+}
+
+.like-button.liked {
+  background: #c0392b;
+  border-color: #c0392b;
+  color: var(--white);
+  cursor: default;
+}
+
+.like-count {
+  color: var(--muted);
 }
 
 /* ---------- Adoptiolomake ---------- */

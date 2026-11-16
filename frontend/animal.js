@@ -55,6 +55,7 @@ function showAnimal(animal) {
   document.getElementById("animal-breed").textContent = animal.breed || "Ei tiedossa";
   document.getElementById("animal-description").textContent = animal.description || "";
   document.getElementById("form-animal-name").textContent = animal.name;
+  document.getElementById("like-count").textContent = likesText(animal.likes);
 
   document.getElementById("animal-details").classList.remove("hidden");
 
@@ -107,6 +108,34 @@ form.addEventListener("submit", async function (event) {
 
   submitButton.disabled = false;
   submitButton.textContent = "Adoptoi minut";
+});
+
+// Tykkää-nappi (lisäominaisuus)
+const likeButton = document.getElementById("like-button");
+
+likeButton.addEventListener("click", async function () {
+  // estetään tuplaklikkaukset sillä aikaa kun pyyntö on kesken
+  likeButton.disabled = true;
+
+  try {
+    const response = await fetch(API_URL + "/animals/" + animalId + "/like", {
+      method: "POST",
+    });
+
+    if (!response.ok) {
+      throw new Error("Palvelin vastasi koodilla " + response.status);
+    }
+
+    const data = await response.json();
+    document.getElementById("like-count").textContent = likesText(data.likes);
+
+    // yksi tykkäys per sivulataus riittää, nappi jää pois päältä
+    likeButton.classList.add("liked");
+    document.getElementById("like-button-text").textContent = "Tykätty";
+  } catch (err) {
+    console.error(err);
+    likeButton.disabled = false;
+  }
 });
 
 loadAnimal();
