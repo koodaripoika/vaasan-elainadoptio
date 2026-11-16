@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiitos hakemuksesta - Vaasan Eläinsuoja</title>
+  <link rel="icon" href="logo.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.svg" alt="" class="logo-icon">
+        <span>Vaasan Eläinsuoja</span>
+      </a>
+      <span class="header-text">Adoptoi, älä osta</span>
+    </div>
+  </header>
+
+  <main class="container page">
+    <section class="thanks-box">
+      <!-- vihreä ympyrä ja väkänen, tehty svg:nä ettei tarvitse erillistä kuvaa -->
+      <svg class="thanks-icon" viewBox="0 0 80 80" width="80" height="80" aria-hidden="true">
+        <circle cx="40" cy="40" r="38" fill="#e4eee8" stroke="#264d42" stroke-width="3"/>
+        <path d="M24 41 L35 52 L57 29" fill="none" stroke="#264d42" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+
+      <h1>Kiitos hakemuksestasi!</h1>
+      <p id="thanks-text">Adoptiohakemuksesi on vastaanotettu.</p>
+      <p>Käymme hakemuksen läpi ja otamme sinuun yhteyttä sähköpostilla muutaman päivän sisällä. Sen jälkeen sovitaan tutustumiskäynti eläinsuojalle.</p>
+
+      <a href="index.html" class="button">Palaa etusivulle</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      Vaasan Eläinsuoja ry
+    </div>
+  </footer>
+
+  <script>
+    // eläimen nimi tulee osoitteesta (kiitos.html?nimi=Musti)
+    const params = new URLSearchParams(window.location.search);
+    const animalName = params.get("nimi");
+
+    if (animalName) {
+      document.getElementById("thanks-text").textContent =
+        "Adoptiohakemuksesi on vastaanotettu, ja " + animalName + " on nyt varattu sinulle.";
+    }
+  </script>
+</body>
+</html>

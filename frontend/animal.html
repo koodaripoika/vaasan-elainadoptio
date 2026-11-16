@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eläimen tiedot - Vaasan Eläinsuoja</title>
+  <link rel="icon" href="logo.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.svg" alt="" class="logo-icon">
+        <span>Vaasan Eläinsuoja</span>
+      </a>
+      <span class="header-text">Adoptoi, älä osta</span>
+    </div>
+  </header>
+
+  <main class="container page">
+    <a href="index.html" class="back-link">&larr; Takaisin kaikkiin eläimiin</a>
+
+    <p id="status-text" class="status-text">Ladataan...</p>
+
+    <!-- nämä on piilossa kunnes eläimen tiedot on haettu -->
+    <section id="animal-details" class="details hidden">
+      <img id="animal-image" class="details-image" src="placeholder.svg" alt="">
+
+      <div class="details-info">
+        <h1 id="animal-name"></h1>
+        <span id="adopted-badge" class="badge-adopted static hidden">Adoptoitu</span>
+
+        <table class="facts">
+          <tr>
+            <th>Laji</th>
+            <td id="animal-type"></td>
+          </tr>
+          <tr>
+            <th>Ikä</th>
+            <td id="animal-age"></td>
+          </tr>
+          <tr>
+            <th>Rotu</th>
+            <td id="animal-breed"></td>
+          </tr>
+        </table>
+
+        <p id="animal-description" class="description"></p>
+      </div>
+    </section>
+
+    <section id="adopt-section" class="adopt-box hidden">
+      <h2>Adoptiohakemus: <span id="form-animal-name"></span></h2>
+      <p class="form-intro">Täytä lomake, niin otamme sinuun yhteyttä ja sovitaan tutustumiskäynti. Tähdellä (*) merkityt kentät ovat pakollisia.</p>
+
+      <form id="adopt-form">
+        <label for="applicant_name">Nimi *</label>
+        <input type="text" id="applicant_name" name="applicant_name" required>
+
+        <label for="email">Sähköposti *</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Puhelinnumero</label>
+        <input type="tel" id="phone" name="phone">
+
+        <label for="message">Kerro vähän itsestäsi ja kodistasi</label>
+        <textarea id="message" name="message" rows="5"></textarea>
+
+        <p id="form-error" class="form-error"></p>
+
+        <button type="submit" id="submit-button" class="button">Adoptoi minut</button>
+      </form>
+    </section>
+
+    <section id="adopted-notice" class="adopt-box hidden">
+      <h2>Tämä eläin on jo löytänyt kodin</h2>
+      <p>Käy katsomassa muita eläimiä, moni niistä odottaa vielä omaa perhettään.</p>
+      <a href="index.html" class="button">Katso muut eläimet</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      Vaasan Eläinsuoja ry
+    </div>
+  </footer>
+
+  <script src="common.js"></script>
+  <script src="animal.js"></script>
+</body>
+</html>
