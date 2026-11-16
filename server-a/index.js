@@ -115,6 +115,33 @@ app.post("/animals/:id/adopt", async (req, res) => {
   }
 });
 
+// POST /animals/:id/like - lisäominaisuus, eläimelle voi antaa tykkäyksen.
+// likes-sarake oli alustavassa tietokantakuvassa, joten tein sille käyttöä
+app.post("/animals/:id/like", async (req, res) => {
+  const id = Number(req.params.id);
+
+  if (!Number.isInteger(id)) {
+    return res.status(400).json({ error: "Virheellinen id" });
+  }
+
+  try {
+    // likes + 1 tehdään suoraan SQL:ssä, niin ei tarvitse hakea vanhaa arvoa ensin
+    const result = await pool.query(
+      "UPDATE animals SET likes = likes + 1 WHERE id = $1 RETURNING likes",
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Eläintä ei löytynyt" });
+    }
+
+    res.json({ likes: result.rows[0].likes });
+  } catch (err) {
+    console.error("Virhe tykkäyksessä:", err.message);
+    res.status(500).json({ error: "Tykkäys epäonnistui" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log("Server A käynnissä portissa " + PORT);
 });
