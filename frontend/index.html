@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vaasan Eläinsuoja - Adoptoitavat eläimet</title>
+  <link rel="icon" href="logo.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.svg" alt="" class="logo-icon">
+        <span>Vaasan Eläinsuoja</span>
+      </a>
+      <span class="header-text">Adoptoi, älä osta</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Löydä uusi perheenjäsen</h1>
+      <p>Nämä eläimet etsivät uutta kotia. Tutustu niihin ja jätä adoptiohakemus suoraan täällä, ei tarvitse soittaa tai tulla paikan päälle.</p>
+    </div>
+  </section>
+
+  <main class="container">
+    <p id="status-text" class="status-text">Ladataan eläimiä...</p>
+    <div id="animal-list" class="animal-list"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      Vaasan Eläinsuoja ry
+    </div>
+  </footer>
+
+  <script src="common.js"></script>
+  <script src="list.js"></script>
+</body>
+</html>
