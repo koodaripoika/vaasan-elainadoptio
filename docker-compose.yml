@@ -1,0 +1,80 @@
+# Kaikki palvelut käyntiin komennolla:  docker-compose up --build
+#
+# db        = PostgreSQL-tietokanta
+# server-a  = pääpalvelin (eläimet), portti 3001
+# server-b  = adoptiopalvelin, portti 3002
+# frontend  = nettisivu (nginx), portti 8080
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: elainsuoja
+      POSTGRES_PASSWORD: salasana
+      POSTGRES_DB: elainadoptio
+    volumes:
+      # init.sql ajetaan automaattisesti kun kanta luodaan ensimmäisen kerran
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      # -h localhost on tässä siksi, että muuten healthcheck saattaa mennä läpi
+      # jo ennen kuin init.sql on ajettu loppuun
+      test: ["CMD-SHELL", "pg_isready -h localhost -U elainsuoja -d elainadoptio"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - adoptioverkko
+
+  server-b:
+    build: ./server-b
+    ports:
+      - "3002:3002"
+    environment:
+      PORT: 3002
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: elainsuoja
+      DB_PASSWORD: salasana
+      DB_NAME: elainadoptio
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - adoptioverkko
+
+  server-a:
+    build: ./server-a
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: 3001
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: elainsuoja
+      DB_PASSWORD: salasana
+      DB_NAME: elainadoptio
+      # Docker-verkossa toiseen konttiin pääsee palvelun nimellä
+      SERVER_B_URL: http://server-b:3002
+    depends_on:
+      db:
+        condition: service_healthy
+      server-b:
+        condition: service_started
+    networks:
+      - adoptioverkko
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - server-a
+    networks:
+      - adoptioverkko
+
+networks:
+  adoptioverkko:
+
+volumes:
+  db-data:
